@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض بيانات البطولات</title>
+    <style>
+          /* تحسينات عامة */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tournament-list {
+           display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .tournament-card {
+           background-color: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%; /* لجعل البطاقات تأخذ عرض الحاوية */
+            margin: 0 auto; /* لتوسيط البطاقات في حالة عدم شغل العرض كاملًا */
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+             box-sizing: border-box;
+        }
+          .tournament-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+
+        .tournament-card h2 {
+            color: #34495e;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+             text-align: center;
+        }
+
+        .tournament-card p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+         .competition-list {
+             list-style: none;
+             padding: 0;
+            margin-bottom: 15px;
+        }
+
+        .competition-item {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            border: 1px solid #eee;
+
+        }
+
+        .competition-item strong{
+          display: inline-block;
+         min-width: 100px;
+           margin-right: 10px;
+
+        }
+         .back-link {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+             text-align: center;
+        }
+          .print-button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+             margin: 20px auto;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+             cursor: pointer;
+            text-align: center;
+        }
+
+          .print-button:hover {
+             background-color: #45a049;
+        }
+
+
+        .back-link:hover {
+            background-color: #2980b9;
+        }
+
+        /* إضافة الشعار */
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: auto;
+        }
+
+         /* تحسينات للجوال */
+        @media (max-width: 768px) {
+             .tournament-card {
+                padding: 15px;
+            }
+             h1 {
+                font-size: 2rem;
+            }
+             .tournament-card h2 {
+                font-size: 1.4rem;
+            }
+               .tournament-card p {
+               font-size: 0.9rem;
+             }
+             .competition-item {
+                 padding: 8px;
+               font-size: 0.9rem;
+             }
+             .logo {
+                width: 80px;
+                top: 10px;
+                right: 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- إضافة الشعار -->
+    <img src="logo.png" alt="شعار البطولات" class="logo">
+
+    <h1>عرض بيانات البطولات</h1>
+    <a href="index.html" class="back-link">الرجوع إلى صفحة الإضافة</a>
+     <button class="print-button" onclick="window.print()">طباعة</button>
+    <div id="tournamentsContainer" class="tournament-list"></div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+             const storageKey = 'tournamentData';
+            const tournamentsContainer = document.getElementById('tournamentsContainer');
+            let storedData = localStorage.getItem(storageKey);
+            let allTournaments = storedData ? JSON.parse(storedData) : [];
+
+            if (allTournaments.length > 0) {
+                allTournaments.forEach(tournament => {
+                    const tournamentCard = document.createElement('div');
+                    tournamentCard.className = 'tournament-card';
+
+                    tournamentCard.innerHTML = `
+                         <h2>${tournament.name}</h2>
+                        <p><strong>كود البطولة:</strong> ${tournament.code}</p>
+                        <p><strong>الدولة المستضيفة:</strong> ${tournament.hostCountry}</p>
+                        <p><strong>تاريخ البطولة:</strong> ${tournament.date}</p>
+                        <p><strong>حصل على المركز:</strong> ${tournament.rank}</p>
+                       <h3>المسابقات:</h3>
+                        <ul class="competition-list"></ul>
+                    `;
+
+                    const competitionList = tournamentCard.querySelector('.competition-list');
+                       if (tournament.competitions && tournament.competitions.length > 0) {
+                           tournament.competitions.forEach(competition => {
+                           const listItem = document.createElement('li');
+                               listItem.className = 'competition-item';
+                               listItem.innerHTML = `
+                                    <strong>نوع المسابقة:</strong> ${competition.type}<br>
+                                    <strong>اسم اللاعب/الفريق:</strong> ${competition.playerName}<br>
+                                    <strong>الميدالية:</strong> ${competition.medal}
+                                `;
+                               competitionList.appendChild(listItem);
+                            });
+                       } else{
+                           const listItem = document.createElement('li');
+                            listItem.textContent="لا توجد مسابقات لهذه البطولة";
+                             competitionList.appendChild(listItem);
+                       }
+                       tournamentsContainer.appendChild(tournamentCard);
+                });
+
+            } else {
+                 tournamentsContainer.innerHTML = '<p style="text-align: center;">لا توجد بيانات بطولات مخزنة.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

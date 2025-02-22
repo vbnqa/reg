@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة بطولة جديدة</title>
+    <style>
+        /* تحسينات عامة */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        input, select, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        button[type="reset"] {
+            background-color: #e74c3c;
+            margin-left: 10px;
+        }
+
+        button[type="reset"]:hover {
+            background-color: #c0392b;
+        }
+
+        .competition-section {
+            border: 1px solid #eee;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .competition-section h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
+
+        /* إضافة الشعار */
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: auto;
+        }
+
+        /* تحسينات للجوال */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            form {
+                padding: 15px;
+            }
+
+            input, select, textarea, button {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                width: 80px;
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- إضافة الشعار -->
+    <img src="logo.png" alt="شعار البطولات" class="logo">
+
+    <h1>إضافة بطولة جديدة</h1>
+    <a href="display.html">عرض البيانات</a>
+
+    <form id="dataForm">
+        <h2>تفاصيل البطولة</h2>
+
+        <label for="tournamentCode">كود البطولة:</label>
+        <input type="text" id="tournamentCode" placeholder="أدخل كود البطولة" aria-label="كود البطولة">
+
+        <label for="tournamentName">اسم البطولة:</label>
+        <input type="text" id="tournamentName" placeholder="أدخل اسم البطولة" aria-label="اسم البطولة">
+
+        <label for="hostCountry">الدولة المستضيفة:</label>
+        <input type="text" id="hostCountry" placeholder="أدخل الدولة المستضيفة" aria-label="الدولة المستضيفة">
+
+        <label for="tournamentDate">تاريخ البطولة:</label>
+        <input type="date" id="tournamentDate" aria-label="تاريخ البطولة">
+
+        <label for="tournamentRank">حصل على المركز:</label>
+        <select id="tournamentRank" aria-label="المركز">
+            <option value="" disabled selected>اختر المركز</option>
+            <option value="الأول">الأول</option>
+            <option value="الثاني">الثاني</option>
+            <option value="الثالث">الثالث</option>
+        </select>
+
+        <!-- أقسام المسابقات -->
+        <div class="competition-section" id="competitionSection-فردي">
+            <h3>فردي</h3>
+            <label for="playerName-فردي">اسم اللاعب:</label>
+            <input type="text" id="playerName-فردي" placeholder="أدخل اسم اللاعب" aria-label="اسم اللاعب">
+            <label for="medal-فردي">الميدالية:</label>
+            <input type="text" id="medal-فردي" placeholder="مثال: ذهبية" aria-label="الميدالية">
+        </div>
+
+        <div class="competition-section" id="competitionSection-زوجي">
+            <h3>زوجي</h3>
+            <label for="playerName-زوجي">اسم اللاعبين:</label>
+            <input type="text" id="playerName-زوجي" placeholder="أدخل اسم اللاعبين" aria-label="اسم اللاعبين">
+            <label for="medal-زوجي">الميدالية:</label>
+            <input type="text" id="medal-زوجي" placeholder="مثال: ذهبية" aria-label="الميدالية">
+        </div>
+
+        <div class="competition-section" id="competitionSection-ثلاثي">
+            <h3>ثلاثي</h3>
+            <label for="playerName-ثلاثي">اسم اللاعبين:</label>
+            <input type="text" id="playerName-ثلاثي" placeholder="أدخل اسم اللاعبين" aria-label="اسم اللاعبين">
+            <label for="medal-ثلاثي">الميدالية:</label>
+            <input type="text" id="medal-ثلاثي" placeholder="مثال: ذهبية" aria-label="الميدالية">
+        </div>
+
+        <div class="competition-section" id="competitionSection-فرق">
+            <h3>فرق</h3>
+            <label for="playerName-فرق">اسم الفريق:</label>
+            <input type="text" id="playerName-فرق" placeholder="أدخل اسم الفريق" aria-label="اسم الفريق">
+            <label for="medal-فرق">الميدالية:</label>
+            <input type="text" id="medal-فرق" placeholder="مثال: ذهبية" aria-label="الميدالية">
+        </div>
+
+        <div class="competition-section" id="competitionSection-مسابقة الترتيب العام">
+            <h3>مسابقة الترتيب العام</h3>
+            <label for="playerName-مسابقة الترتيب العام">اسم اللاعبين:</label>
+            <input type="text" id="playerName-مسابقة الترتيب العام" placeholder="أدخل اسم اللاعبين" aria-label="اسم اللاعبين">
+            <label for="medal-مسابقة الترتيب العام">الميدالية:</label>
+            <input type="text" id="medal-مسابقة الترتيب العام" placeholder="مثال: ذهبية" aria-label="الميدالية">
+        </div>
+
+        <div class="competition-section" id="competitionSection-مسابقة الأساتذة">
+            <h3>مسابقة الأساتذة</h3>
+            <label for="playerName-مسابقة الأساتذة">اسم اللاعب:</label>
+            <input type="text" id="playerName-مسابقة الأساتذة" placeholder="أدخل اسم اللاعب" aria-label="اسم اللاعب">
+            <label for="medal-مسابقة الأساتذة">الميدالية:</label>
+            <input type="text" id="medal-مسابقة الأساتذة" placeholder="مثال: ذهبية" aria-label="الميدالية">
+        </div>
+
+        <button type="button" onclick="saveData()">حفظ البيانات</button>
+        <button type="reset">مسح الحقول</button>
+    </form>
+
+    <script>
+        const dataForm = document.getElementById('dataForm');
+        const storageKey = 'tournamentData';
+
+        const competitionTypes = [
+            "فردي",
+            "زوجي",
+            "ثلاثي",
+            "فرق",
+            "مسابقة الترتيب العام",
+            "مسابقة الأساتذة",
+        ];
+
+        // تنظيف المدخلات من أي محتوى ضار
+        function sanitizeInput(input) {
+            const tempDiv = document.createElement('div');
+            tempDiv.textContent = input;
+            return tempDiv.innerHTML;
+        }
+
+        // حفظ البيانات
+        function saveData() {
+            const code = sanitizeInput(document.getElementById('tournamentCode').value.trim());
+            const name = sanitizeInput(document.getElementById('tournamentName').value.trim());
+            const hostCountry = sanitizeInput(document.getElementById('hostCountry').value.trim());
+            const date = document.getElementById('tournamentDate').value;
+            const rank = document.getElementById('tournamentRank').value;
+
+            // إنشاء كائن البطولة
+            let tournamentData = {
+                code: code,
+                name: name,
+                hostCountry: hostCountry,
+                date: date,
+                rank: rank,
+                competitions: [],
+            };
+
+            // إضافة بيانات المسابقات
+            competitionTypes.forEach(competitionType => {
+                const playerName = sanitizeInput(document.getElementById(`playerName-${competitionType}`).value.trim());
+                const medal = sanitizeInput(document.getElementById(`medal-${competitionType}`).value.trim());
+
+                if (playerName && medal) {
+                    tournamentData.competitions.push({
+                        type: competitionType,
+                        playerName: playerName,
+                        medal: medal,
+                    });
+                }
+            });
+
+            // استرجاع البيانات الحالية من التخزين المحلي
+            let storedData = localStorage.getItem(storageKey);
+            let allTournaments = storedData ? JSON.parse(storedData) : [];
+
+            // إضافة البطولة الجديدة إلى البيانات
+            allTournaments.push(tournamentData);
+            localStorage.setItem(storageKey, JSON.stringify(allTournaments));
+            alert("تم حفظ البيانات بنجاح!");
+            dataForm.reset();
+        }
+    </script>
+</body>
+</html>
